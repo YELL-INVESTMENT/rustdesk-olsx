@@ -17,6 +17,9 @@ Rien à configurer : vous téléchargez, vous installez, vous communiquez le cod
 
 ---
 
+> **Page de téléchargement : [yell-investment.github.io/rustdesk-olsx][page]**
+> C'est l'adresse à communiquer aux clients. Elle détecte leur système et ne montre aucun code.
+
 ## Télécharger
 
 | Votre ordinateur | Fichier à télécharger |
@@ -118,6 +121,7 @@ Fondé sur <a href="https://github.com/rustdesk/rustdesk">RustDesk</a>, sous lic
 [releases]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest
 [licence]: LICENCE
 [rustdesk]: https://github.com/rustdesk/rustdesk
+[page]: https://yell-investment.github.io/rustdesk-olsx/
 
 [badge-version]: https://img.shields.io/github/v/release/YELL-INVESTMENT/rustdesk-olsx?label=version&color=F02429
 [badge-os]: https://img.shields.io/badge/syst%C3%A8mes-Windows%20%7C%20macOS-555

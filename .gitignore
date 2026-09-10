@@ -65,3 +65,4 @@ flutter/web/
 !branding/assets/*.png
 !flutter/assets/icon.png
 !flutter/assets/logo.png
+!docs/*.png

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistance à distance OLSx</title>
+<meta name="description" content="Le logiciel d'assistance à distance d'OLSx. Téléchargez, installez, communiquez le code affiché.">
+<meta property="og:title" content="Assistance à distance OLSx">
+<meta property="og:description" content="Téléchargez, installez, communiquez le code affiché.">
+<meta property="og:image" content="https://yell-investment.github.io/rustdesk-olsx/og.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rouge:#F02429;
+  --rouge-fonce:#B31419;
+  --noir:#000000;
+  --encre:#3D444D;
+  --acier:#EDEEF0;
+  --blanc:#FFFFFF;
+  --marge:clamp(1.5rem,5vw,5rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  color:var(--encre);background:var(--blanc);
+  font-size:clamp(1rem,.95rem + .2vw,1.0625rem);line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--noir);outline-offset:3px}
+.enveloppe{max-width:1180px;margin:0 auto;padding-inline:var(--marge)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--rouge);color:var(--blanc);overflow:hidden}
+.hero__x{
+  position:absolute;top:50%;right:-6%;translate:0 -50%;
+  width:min(58vw,720px);aspect-ratio:1;opacity:.11;pointer-events:none;
+}
+.hero__x polygon{fill:var(--blanc)}
+.hero__contenu{position:relative;padding-block:clamp(3rem,9vw,7rem) clamp(3.5rem,9vw,6.5rem)}
+.marque{display:block;width:clamp(112px,13vw,164px);height:auto;margin-bottom:clamp(2.5rem,7vw,4.5rem)}
+.marque path,.marque polygon{fill:var(--blanc)}
+h1{
+  font-variation-settings:'wdth' 125,'wght' 850;
+  font-size:clamp(2.9rem,9.5vw,6.4rem);line-height:.9;letter-spacing:-.025em;
+  text-transform:uppercase;max-width:11ch;
+}
+.chapeau{margin-top:clamp(1.25rem,3vw,1.75rem);max-width:44ch;font-size:clamp(1.0625rem,1rem + .4vw,1.3rem);line-height:1.5}
+
+/* ---------- Téléchargement ---------- */
+.telechargement{margin-top:clamp(2.25rem,5vw,3.25rem)}
+.boutons{display:flex;flex-wrap:wrap;gap:.75rem}
+.bouton{
+  display:inline-flex;align-items:center;gap:.7rem;
+  background:var(--blanc);color:var(--noir);
+  font-variation-settings:'wdth' 112,'wght' 750;font-size:1.0625rem;
+  padding:1.05rem 1.6rem;text-decoration:none;border:2px solid var(--blanc);
+  transition:background .12s linear,color .12s linear;
+}
+.bouton:hover,.bouton:focus-visible{background:var(--noir);color:var(--blanc);border-color:var(--noir)}
+.bouton svg{width:1.15em;height:1.15em;flex:none}
+.bouton--fantome{background:transparent;color:var(--blanc)}
+.bouton--fantome:hover,.bouton--fantome:focus-visible{background:var(--blanc);color:var(--noir);border-color:var(--blanc)}
+.appoint{margin-top:1.1rem;font-size:.9375rem;line-height:1.5;opacity:.92}
+.appoint a{text-underline-offset:.22em}
+
+.tous{margin-top:1.75rem;font-size:.9688rem}
+.tous summary{cursor:pointer;font-variation-settings:'wght' 650;padding-block:.35rem;color:var(--blanc)}
+.tous summary::marker{color:var(--blanc)}
+.tous table{width:100%;border-collapse:collapse;margin-top:.9rem;max-width:640px}
+.tous th,.tous td{text-align:left;padding:.6rem .9rem .6rem 0;border-bottom:1px solid rgba(255,255,255,.28);vertical-align:top}
+.tous th{font-variation-settings:'wght' 650;white-space:nowrap}
+.tous td a{margin-right:1rem;white-space:nowrap}
+
+/* ---------- Etapes ---------- */
+.etapes{background:var(--noir);color:var(--blanc)}
+.etapes ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr)}
+.etapes li{padding:clamp(2.25rem,4.5vw,3.25rem) clamp(1.4rem,3vw,2.6rem);border-left:1px solid #2B2B2B}
+.etapes li:first-child{border-left:0;padding-left:0}
+.etapes .rang{
+  display:block;font-variation-settings:'wdth' 125,'wght' 900;
+  font-size:2.6rem;line-height:1;color:var(--rouge);margin-bottom:.85rem;
+}
+.etapes h2{font-variation-settings:'wdth' 112,'wght' 750;font-size:1.2rem;line-height:1.3;margin-bottom:.5rem;min-height:2.6em}
+.etapes p{font-size:.9688rem;line-height:1.6;color:#B9BEC4}
+
+/* ---------- Sections claires ---------- */
+.bloc{padding-block:clamp(3.25rem,7vw,5.5rem)}
+.bloc--acier{background:var(--acier)}
+.titre{font-variation-settings:'wdth' 118,'wght' 800;font-size:clamp(1.7rem,1.3rem + 1.6vw,2.4rem);line-height:1.05;letter-spacing:-.015em;color:var(--noir);text-transform:uppercase;max-width:24ch}
+.sous-titre{margin-top:.8rem;max-width:52ch}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.75rem,4vw,3.5rem);margin-top:clamp(2rem,4vw,3rem)}
+.fiche h3{font-variation-settings:'wdth' 112,'wght' 750;font-size:1.15rem;color:var(--noir);padding-top:.9rem;border-top:4px solid var(--rouge)}
+.fiche p{margin-top:.85rem}
+.fiche ul{margin-top:.85rem;padding-left:1.1rem}
+.fiche li{margin-top:.4rem}
+.fiche b{font-variation-settings:'wght' 700;color:var(--noir)}
+
+.points{margin-top:clamp(1.75rem,4vw,2.5rem);display:grid;gap:1.6rem;max-width:66ch}
+.points p{padding-left:1.4rem;border-left:4px solid var(--rouge)}
+
+/* ---------- Pied ---------- */
+footer{background:var(--noir);color:#8C939B;padding-block:2.75rem;font-size:.875rem}
+footer .enveloppe{display:flex;flex-wrap:wrap;gap:.6rem 2rem;justify-content:space-between}
+footer a{color:#D5D9DD;text-underline-offset:.2em}
+
+@media (max-width:820px){
+  .etapes ol{grid-template-columns:1fr}
+  .etapes li{border-left:0;border-top:1px solid #2B2B2B;padding-left:0;padding-right:0}
+  .etapes li:first-child{border-top:0}
+  .etapes ol{padding-inline:0}
+  .duo{grid-template-columns:1fr}
+  .etapes h2{min-height:0}
+  .hero__x{right:-22%;opacity:.09}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero__x{animation:entree .9s cubic-bezier(.16,.84,.44,1) both}
+  @keyframes entree{from{opacity:0;translate:8% -50%}to{opacity:.11;translate:0 -50%}}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="hero__x" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+    <polygon points="4,0 32,0 96,100 68,100"/>
+    <polygon points="68,0 96,0 32,100 4,100"/>
+  </svg>
+  <div class="enveloppe hero__contenu">
+    <svg class="marque" viewBox="0 0 776.56 178.66" role="img" aria-label="OLSx"><path d="M197.83,62.66c0.07,10.63-0.85,21.23-2.74,31.69c-12.48,75.58-41.17,84.31-111,84.31C25.5,178.66,0,160.9,0,116.25c0-10.48,0.75-18.21,3-31.93C15.5,8.73,44.16,0,114.01,0C172.63,0,197.83,17.71,197.83,62.66z M58.13,110.26c0,17.46,11.23,25,31.18,25c29.94,0,40.92-11,47.9-43.41c1.58-7.63,2.41-15.4,2.49-23.2c0-17.46-11-25.2-30.93-25.2c-29.93,0-41.16,11-47.9,43.41C59.24,94.56,58.32,102.39,58.13,110.26z"/><path d="M215.91,176.66c-14.72,0-22.21-8.48-22.21-20.21c0-2.43,0.25-4.85,0.75-7.23L225.63,1.99h56.38l-25.44,120.25c-0.28,1.32-0.44,2.66-0.5,4c0,4.74,3,7,9,7h86.32l-9.25,43.42H215.91z"/><path d="M363.2,133.21h96.79c4.24,0,11.23-1,11.23-6.73c0-4.24-4.49-5.74-9.73-7.49l-58.38-19c-18-6-25.19-19.21-25.19-37.67c0.06-6.53,0.73-13.04,2-19.45c5.74-27.45,18-40.92,50.39-40.92h115.25l-9.23,43.41H447.5c-4.24,0-13.47,0-13.47,6.74c0,6.23,8.48,7,13,8.48l50.64,15.71c21.7,6.74,31.93,17.47,31.93,37.67c-0.18,6.54-0.92,13.05-2.24,19.46c-6.25,29.98-17.48,43.24-52.4,43.24H354.22L363.2,133.21z"/><polygon points="647.1,119.11 687.56,174.02 739.49,174.02 699.03,119.11"/><polygon points="724.63,1.99 655.85,60.5 612.74,1.99 560.81,1.99 623.93,87.66 522.42,174.02 574.35,174.02 776.56,1.99"/></svg>
+    <h1>Assistance à distance</h1>
+    <p class="chapeau">Notre équipe prend la main sur votre ordinateur, le temps d’une intervention. Vous voyez tout, vous coupez quand vous voulez.</p>
+
+    <div class="telechargement">
+      <div class="boutons" id="boutons"></div>
+      <p class="appoint" id="appoint"></p>
+
+      <details class="tous">
+        <summary>Tous les fichiers</summary>
+        <table>
+          <tr><th>Windows</th><td><a href="https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-x86_64.exe">Installeur .exe</a><a href="https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-x86_64.msi">Paquet .msi</a></td></tr>
+          <tr><th>Windows ARM</th><td><a href="https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-aarch64.exe">Installeur .exe</a><a href="https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-aarch64.msi">Paquet .msi</a></td></tr>
+          <tr><th>Mac Apple</th><td><a href="https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-macos-aarch64.dmg">Image .dmg</a></td></tr>
+          <tr><th>Mac Intel</th><td><a href="https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-macos-x86_64.dmg">Image .dmg</a></td></tr>
+        </table>
+      </details>
+    </div>
+  </div>
+</header>
+
+<section class="etapes">
+  <div class="enveloppe">
+    <ol>
+      <li>
+        <span class="rang">1</span>
+        <h2>Installez le logiciel</h2>
+        <p>Une seule fois. Le fichier fait quelques dizaines de mégaoctets et s’installe en moins d’une minute.</p>
+      </li>
+      <li>
+        <span class="rang">2</span>
+        <h2>Ouvrez-le au moment du rendez-vous</h2>
+        <p>L’application affiche un identifiant à neuf chiffres et un mot de passe, renouvelé à chaque ouverture.</p>
+      </li>
+      <li>
+        <span class="rang">3</span>
+        <h2>Communiquez-nous ces deux lignes</h2>
+        <p>Nous nous connectons. Rien ne se passe tant que vous ne les avez pas transmises, et fermer l’application coupe la session.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="bloc">
+  <div class="enveloppe">
+    <h2 class="titre">Au premier lancement</h2>
+    <p class="sous-titre">Les deux systèmes affichent un avertissement, parce que le logiciel n’est pas distribué par un grand éditeur. Voici comment passer outre.</p>
+    <div class="duo">
+      <div class="fiche">
+        <h3>Windows</h3>
+        <p>Ouvrez le fichier téléchargé et suivez l’installation.</p>
+        <p>Un écran bleu apparaît, intitulé <b>Windows a protégé votre ordinateur</b>. Cliquez sur <b>Informations complémentaires</b>, puis sur <b>Exécuter quand même</b>.</p>
+      </div>
+      <div class="fiche">
+        <h3>macOS</h3>
+        <p>Ouvrez l’image téléchargée, puis glissez l’application dans le dossier <b>Applications</b>.</p>
+        <p>La première fois, ne double-cliquez pas dessus : macOS refuserait de l’ouvrir. Faites un <b>clic droit</b>, choisissez <b>Ouvrir</b>, puis confirmez.</p>
+        <p>Autorisez ensuite l’application dans <b>Réglages Système</b>, rubrique <b>Confidentialité et sécurité</b> :</p>
+        <ul>
+          <li><b>Enregistrement de l’écran</b>, pour que nous voyions votre écran</li>
+          <li><b>Accessibilité</b>, pour que nous puissions utiliser le clavier et la souris</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bloc bloc--acier">
+  <div class="enveloppe">
+    <h2 class="titre">Ce que fait ce logiciel, et ce qu’il ne fait pas</h2>
+    <div class="points">
+      <p>Il ne tourne que lorsque vous l’ouvrez. Il ne démarre pas avec l’ordinateur et n’attend pas en arrière-plan.</p>
+      <p>Vos sessions passent uniquement par le serveur d’OLSx. L’adresse et la clé de ce serveur sont inscrites dans le fichier que vous installez, aucun autre serveur n’est joignable.</p>
+      <p>Le code source complet est publié. N’importe qui peut vérifier ce que fait le logiciel, ligne par ligne.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="enveloppe">
+    <span>Une question ? Contactez votre interlocuteur habituel chez OLSx.<br>Vous intervenez pour OLSx ? Le même fichier sert aussi de poste technicien.</span>
+    <span><a href="https://github.com/YELL-INVESTMENT/rustdesk-olsx">Code source</a> &nbsp; Fondé sur RustDesk, licence AGPL 3.0</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var BASE = 'https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/';
+  var FLECHE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v13m0 0 5-5m-5 5-5-5M4 21h16"/></svg>';
+  var ua = navigator.userAgent || '';
+  var plateforme = (navigator.userAgentData && navigator.userAgentData.platform) || '';
+  var mac = /Mac/i.test(plateforme) || (/Mac OS X/i.test(ua) && !/iPhone|iPad/i.test(ua));
+  var win = /Win/i.test(plateforme) || /Windows/i.test(ua);
+
+  function bouton(href, libelle, fantome) {
+    return '<a class="bouton' + (fantome ? ' bouton--fantome' : '') + '" href="' + BASE + href + '">' + FLECHE + libelle + '</a>';
+  }
+
+  var boutons = document.getElementById('boutons');
+  var appoint = document.getElementById('appoint');
+
+  if (mac) {
+    boutons.innerHTML = bouton('olsx-remote-macos-aarch64.dmg', 'Mac à puce Apple')
+                      + bouton('olsx-remote-macos-x86_64.dmg', 'Mac à processeur Intel', true);
+    appoint.innerHTML = 'Menu Pomme, <b>À propos de ce Mac</b> : la ligne Puce ou Processeur vous dit lequel choisir.';
+  } else if (win) {
+    boutons.innerHTML = bouton('olsx-remote-windows-x86_64.exe', 'Télécharger pour Windows');
+    appoint.innerHTML = 'Votre service informatique préfère peut-être le <a href="' + BASE + 'olsx-remote-windows-x86_64.msi">paquet .msi</a>.';
+  } else {
+    boutons.innerHTML = bouton('olsx-remote-windows-x86_64.exe', 'Windows')
+                      + bouton('olsx-remote-macos-aarch64.dmg', 'Mac à puce Apple', true);
+    appoint.textContent = 'Nous n’avons pas reconnu votre système. Choisissez ci-dessous, ou ouvrez la liste complète.';
+  }
+})();
+</script>
+
+</body>
+</html>
