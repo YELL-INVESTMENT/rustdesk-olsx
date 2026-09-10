@@ -929,6 +929,21 @@ jobs:
           fi
           ./build.py --flutter --hwcodec --unix-file-copy-paste ${{ matrix.job.extra-build-args }}
 
+      - name: Ad-hoc sign the app bundle
+        # build.py copie le binaire « service » dans le paquet APRÈS que Xcode
+        # l'a signé, ce qui invalide le sceau : macOS refuse alors l'application
+        # en la déclarant endommagée, et le clic droit puis Ouvrir n'y change
+        # rien. Faute de certificat Apple, on resigne le paquet sans identité.
+        # L'utilisateur retombe sur l'avertissement habituel de développeur non
+        # identifié, que le clic droit contourne.
+        if: ${{ inputs.olsx-only && env.UPLOAD_ARTIFACT == 'true' && env.MACOS_P12_BASE64 == null }}
+        run: |
+          set -e
+          APP=./flutter/build/macos/Build/Products/Release/RustDesk.app
+          codesign --force --sign - "$APP/Contents/MacOS/service"
+          codesign --force --deep --sign - "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+
       - name: create unsigned dmg
         if: env.UPLOAD_ARTIFACT == 'true'
         run: |
