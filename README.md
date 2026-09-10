@@ -74,9 +74,16 @@ Cliquez sur **Informations complémentaires**, puis sur **Exécuter quand même*
 Ouvrez l'image `.dmg` téléchargée, puis glissez l'application dans le dossier
 **Applications**.
 
-Au tout premier lancement, ne double-cliquez pas sur l'application : macOS refuserait de
-l'ouvrir. Faites un **clic droit** dessus, choisissez **Ouvrir**, puis confirmez. Les
-lancements suivants se font normalement.
+Au premier lancement, macOS bloque l'application et affiche qu'Apple n'a pas pu vérifier
+l'absence de logiciel malveillant. C'est normal, elle n'est pas distribuée par l'App Store.
+
+**Ne cliquez pas sur Déplacer vers la corbeille.** Cliquez sur **Terminé**, puis ouvrez
+Réglages Système, rubrique Confidentialité et sécurité. En bas de la section Sécurité, une
+ligne mentionne l'application avec un bouton **Ouvrir quand même**. Cliquez dessus et
+confirmez. C'est à faire une seule fois, les lancements suivants sont normaux.
+
+Sur les versions antérieures à macOS Sequoia, le raccourci historique fonctionne encore :
+clic droit sur l'application, puis **Ouvrir**.
 
 macOS demande ensuite deux autorisations, dans **Réglages Système**, rubrique
 **Confidentialité et sécurité**. Sans elles, l'écran reste noir ou ne réagit pas :
