@@ -1,112 +1,131 @@
-# Client de prise en main à distance OLSx
+<div align="center">
 
-Version personnalisée de [RustDesk](https://github.com/rustdesk/rustdesk), aux couleurs
-d'OLSx et pré-configurée pour se connecter au serveur de relais opéré par MettaDev.
-L'utilisateur n'a aucun paramètre à saisir : il télécharge, il installe, il communique
-l'identifiant affiché à l'écran.
+<img src="branding/assets/logo-wide.png" alt="OLSx" width="260">
 
-## Téléchargement
+<h1>Assistance à distance</h1>
 
-| Système | Fichier |
+<p>
+Laissez notre équipe prendre la main sur votre ordinateur, le temps d'une intervention.<br>
+Rien à configurer : vous téléchargez, vous installez, vous communiquez le code affiché.
+</p>
+
+[![Dernière version][badge-version]][releases]
+[![Windows et macOS][badge-os]][releases]
+[![Licence AGPL-3.0][badge-licence]][licence]
+
+</div>
+
+---
+
+## Télécharger
+
+| Votre ordinateur | Fichier à télécharger |
 |---|---|
-| Windows 10 et 11, Intel ou AMD | [Installeur .exe](https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-x86_64.exe) · [Paquet .msi](https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-x86_64.msi) |
-| Windows sur ARM | [Installeur .exe](https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-aarch64.exe) · [Paquet .msi](https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-aarch64.msi) |
-| macOS, puce Apple M1 et suivantes | [Image .dmg](https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-macos-aarch64.dmg) |
-| macOS, processeur Intel | [Image .dmg](https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-macos-x86_64.dmg) |
+| **Windows**, la très grande majorité des PC | **[Installeur .exe][win-exe]** ou [paquet .msi][win-msi] |
+| **Windows sur processeur ARM**, rare | [Installeur .exe][win-arm-exe] ou [paquet .msi][win-arm-msi] |
+| **Mac à puce Apple**, M1 et suivantes | **[Image .dmg][mac-arm]** |
+| **Mac à processeur Intel**, avant 2021 | **[Image .dmg][mac-intel]** |
 
-Ces liens pointent toujours vers la dernière version publiée. Ils ne changent pas d'une
-compilation à l'autre et peuvent donc être communiqués tels quels. Pour mettre à jour,
-retélécharger et réinstaller par dessus : cette version ne se met pas à jour toute seule.
+En cas de doute sur votre Mac, ouvrez le menu Pomme puis **À propos de ce Mac**. La ligne
+Puce ou Processeur vous donne la réponse.
 
-### Installation sous Windows
+Ces liens pointent toujours vers la version la plus récente. Ils ne changent jamais, vous
+pouvez donc les conserver. Le paquet `.msi` s'adresse aux services informatiques qui
+déploient le logiciel sur plusieurs postes à la fois.
 
-Lancer le fichier téléchargé. Le paquet .msi convient mieux à un déploiement par
-stratégie de groupe. Comme le binaire n'est pas signé par un certificat commercial,
-Windows SmartScreen affiche un avertissement au premier lancement : cliquer sur
-**Informations complémentaires** puis **Exécuter quand même**.
+## Comment ça marche
 
-### Installation sous macOS
+**1. Installez le logiciel.** Une seule fois, en suivant la section ci-dessous
+correspondant à votre système.
 
-Ouvrir l'image .dmg et glisser l'application dans le dossier Applications. L'application
-n'étant pas signée par un certificat Apple, le premier lancement demande un détour :
-clic droit sur l'application, puis **Ouvrir**, puis confirmer. Un double-clic simple
-sera refusé.
+**2. Ouvrez-le quand on vous le demande.** L'application affiche un identifiant à neuf
+chiffres et un mot de passe.
 
-macOS demande ensuite deux autorisations dans Réglages Système, Confidentialité et
-sécurité. Sans elles, la prise en main affiche un écran noir ou ne réagit pas :
+**3. Communiquez-nous ces deux informations.** Nous nous connectons, vous voyez tout ce
+qui se passe à l'écran, et vous pouvez interrompre la session à tout moment en fermant
+l'application.
 
-- **Enregistrement de l'écran**, pour voir le poste distant
-- **Accessibilité**, pour piloter le clavier et la souris
+Le logiciel ne tourne que lorsque vous l'ouvrez. Personne ne peut se connecter à votre
+poste sans que vous ayez communiqué le mot de passe affiché.
 
-## Ce qui distingue cette version de RustDesk
+## Premier lancement
 
-Trois choses seulement :
+<details>
+<summary><b>Windows</b></summary>
 
-1. **Le serveur de rendez-vous** pointe vers l'infrastructure MettaDev, et non vers les
-   serveurs publics de RustDesk.
-2. **La clé publique du serveur** est intégrée au binaire, ce qui interdit toute connexion
-   passant par un autre serveur.
-3. **Les icônes et le logo** affichés sont ceux d'OLSx.
+<br>
 
-Les deux premiers points sont appliqués à la compilation par `branding/apply.sh`, à partir
-des valeurs de `branding/branding.env`. Le troisième vient de fichiers d'icônes versionnés,
-produits une fois pour toutes par `branding/gen-icons.sh`.
+Ouvrez le fichier téléchargé et suivez l'installation.
 
-L'application porte encore le nom RustDesk dans ses fenêtres et son dossier d'installation.
-Ce nom est codé en dur dans le packaging des trois plateformes, le changer est un chantier
-à part entière qui n'a pas été mené.
+Windows affiche un écran bleu intitulé **Windows a protégé votre ordinateur**. C'est le
+comportement normal face à un logiciel qui n'est pas distribué par un grand éditeur.
+Cliquez sur **Informations complémentaires**, puis sur **Exécuter quand même**.
 
-Le reste du code est celui du projet amont, sans modification. Le README d'origine est
-conservé dans [README.upstream.md](README.upstream.md).
+</details>
 
-## Compiler soi-même
+<details>
+<summary><b>macOS</b></summary>
 
-```bash
-git clone --recurse-submodules https://github.com/YELL-INVESTMENT/rustdesk-olsx.git
-cd rustdesk-olsx
-./branding/apply.sh
-```
+<br>
 
-`apply.sh` lit `branding/branding.env` et refuse de s'exécuter tant que le serveur et la
-clé publique ne sont pas renseignés. Il écrit dans le sous-module `libs/hbb_common`, que
-`git status` signalera donc comme modifié : c'est normal et voulu, les sources versionnées
-restent celles du projet amont. Il est rejouable, y compris après une remise à jour
-depuis le projet amont. `./branding/apply.sh --check` vérifie l'état des sources sans
-rien modifier.
+Ouvrez l'image `.dmg` téléchargée, puis glissez l'application dans le dossier
+**Applications**.
 
-La compilation elle-même suit la procédure du projet amont, décrite dans
-[README.upstream.md](README.upstream.md). Elle demande Rust, Flutter, vcpkg et, pour la
-cible Windows, le compilateur de Visual Studio. En pratique, la compilation Windows et
-macOS passe par le workflow ci-dessous plutôt que par un poste de développement.
+Au tout premier lancement, ne double-cliquez pas sur l'application : macOS refuserait de
+l'ouvrir. Faites un **clic droit** dessus, choisissez **Ouvrir**, puis confirmez. Les
+lancements suivants se font normalement.
 
-Pour changer le logo, remplacer `branding/assets/logo-square.png` par un carré de
-1024 pixels à fond transparent, puis lancer `./branding/gen-icons.sh`. Les icônes
-produites sont versionnées, la compilation n'a donc besoin d'aucun outil graphique.
+macOS demande ensuite deux autorisations, dans **Réglages Système**, rubrique
+**Confidentialité et sécurité**. Sans elles, l'écran reste noir ou ne réagit pas :
 
-## Publier une nouvelle version
+- **Enregistrement de l'écran**, pour que nous voyions votre écran
+- **Accessibilité**, pour que nous puissions utiliser le clavier et la souris
 
-Le workflow **Client OLSx** compile Windows et macOS puis publie les binaires sous les
-noms de fichiers utilisés par les liens ci-dessus. Il se déclenche à la main depuis
-l'onglet Actions, ou sur la pose d'un tag `olsx-v*` pour figer une version livrée.
+</details>
 
-## Suivre les mises à jour du projet amont
+## Mise à jour
 
-```bash
-git remote add upstream https://github.com/rustdesk/rustdesk.git
-git fetch upstream
-git merge upstream/master
-./branding/apply.sh --check
-```
+Le logiciel ne se met pas à jour tout seul. Pour installer une nouvelle version,
+retéléchargez le fichier depuis cette page et réinstallez par dessus. Vos réglages sont
+conservés.
 
-Si `--check` signale que les sources ne sont plus conformes, relancer `apply.sh`. S'il
-signale un motif introuvable, c'est que le code amont a bougé à l'endroit patché : il
-faut alors corriger `branding/apply.sh`.
+## Confidentialité
 
-## Licence
+Ce logiciel est une version de [RustDesk][rustdesk] configurée pour nous. Deux
+conséquences concrètes :
 
-RustDesk est distribué sous licence **GNU AGPL version 3**, que ce dépôt reprend
-intégralement dans le fichier [LICENCE](LICENCE). Cette licence impose de publier les
-sources de toute version modifiée qui est distribuée, ce que fait ce dépôt public.
+- **Vos sessions ne passent pas par les serveurs publics de RustDesk.** Elles transitent
+  uniquement par notre serveur, dont l'adresse et la clé sont inscrites dans le logiciel.
+- **Aucun autre serveur n'est joignable.** La clé de notre serveur étant intégrée au
+  fichier que vous installez, ce logiciel ne peut pas être détourné vers ailleurs.
 
-Projet d'origine : [github.com/rustdesk/rustdesk](https://github.com/rustdesk/rustdesk).
-RustDesk est une marque de ses auteurs. Ce fork n'est ni affilié ni soutenu par eux.
+Le code source complet est publié sur cette page, comme l'exige la licence du projet
+d'origine. N'importe qui peut vérifier ce que fait le logiciel.
+
+## Une question
+
+Contactez votre interlocuteur habituel chez OLSx.
+
+---
+
+<div align="center">
+<sub>
+Développeurs : la compilation et la maintenance sont décrites dans <a href="BUILD.md">BUILD.md</a>.<br>
+Fondé sur <a href="https://github.com/rustdesk/rustdesk">RustDesk</a>, sous licence GNU AGPL version 3.
+</sub>
+</div>
+
+[releases]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest
+[licence]: LICENCE
+[rustdesk]: https://github.com/rustdesk/rustdesk
+
+[badge-version]: https://img.shields.io/github/v/release/YELL-INVESTMENT/rustdesk-olsx?label=version&color=F02429
+[badge-os]: https://img.shields.io/badge/syst%C3%A8mes-Windows%20%7C%20macOS-555
+[badge-licence]: https://img.shields.io/badge/licence-AGPL--3.0-555
+
+[win-exe]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-x86_64.exe
+[win-msi]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-x86_64.msi
+[win-arm-exe]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-aarch64.exe
+[win-arm-msi]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-windows-aarch64.msi
+[mac-arm]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-macos-aarch64.dmg
+[mac-intel]: https://github.com/YELL-INVESTMENT/rustdesk-olsx/releases/latest/download/olsx-remote-macos-x86_64.dmg
