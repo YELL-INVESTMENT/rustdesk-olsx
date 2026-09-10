@@ -58,3 +58,10 @@ libsciter.dylib
 flutter/web/
 # libdrmtap is cloned at build time by build.py (not a submodule)
 /third_party/libdrmtap/
+
+# Ajout OLSx : les regles *png et *svg ci-dessus ignorent aussi nos sources
+# graphiques et les icones qu'elles produisent, qui doivent etre versionnees
+# pour que la compilation n'ait besoin d'aucun outil d'image.
+!branding/assets/*.png
+!flutter/assets/icon.png
+!flutter/assets/logo.png
