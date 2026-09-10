@@ -1,0 +1,26 @@
+# Compile le client OLSx pour Windows et macOS, puis publie les binaires
+# sous des noms de fichiers stables dans la derniere version publiee.
+#
+# Les liens de telechargement du README passent par /releases/latest/download/
+# et restent donc valides d'une compilation a l'autre.
+name: Client OLSx
+
+on:
+  # Compilation a la demande depuis l'onglet Actions.
+  workflow_dispatch:
+  # Compilation sur pose d'un tag, pour figer une version livree au client.
+  push:
+    tags:
+      - "olsx-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/flutter-build.yml
+    with:
+      upload-artifact: true
+      upload-tag: ${{ github.ref_type == 'tag' && github.ref_name || 'latest' }}
+      olsx-only: true
+    secrets: inherit

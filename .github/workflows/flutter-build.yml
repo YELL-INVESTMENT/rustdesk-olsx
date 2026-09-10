@@ -9,6 +9,12 @@ on:
       upload-tag:
         type: string
         default: "nightly"
+      # Ajout OLSx : ne compile que Windows et macOS, publie les binaires sous
+      # des noms stables et marque la publication comme derniere version, pour
+      # que les liens du README restent valides d'une compilation a l'autre.
+      olsx-only:
+        type: boolean
+        default: false
 
 # NOTE: F-Droid builder script 'flutter/build_fdroid.sh' reads environment
 # variables from this workflow!
@@ -55,6 +61,7 @@ env:
 
 jobs:
   generate-sbom:
+    if: ${{ !inputs.olsx-only }}
     runs-on: ubuntu-latest
 
     permissions:
@@ -146,6 +153,11 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply OLSx branding
+        if: ${{ inputs.olsx-only }}
+        shell: bash
+        run: ./branding/apply.sh
 
       - name: Restore bridge files
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -444,18 +456,31 @@ jobs:
         run: |
           BASE_URL=${{ env.SIGN_BASE_URL }} SECRET_KEY=${{ secrets.SIGN_SECRET_KEY }} python3 res/job.py sign_files ./SignOutput
 
+      - name: Rename OLSx artifacts
+        if: ${{ inputs.olsx-only && env.UPLOAD_ARTIFACT == 'true' }}
+        shell: bash
+        run: |
+          set -e
+          mv ./SignOutput/rustdesk-*-${{ matrix.job.arch }}.exe \
+             ./SignOutput/${{ env.ASSET_PREFIX }}-windows-${{ matrix.job.arch }}.exe
+          mv ./SignOutput/rustdesk-*-${{ matrix.job.arch }}.msi \
+             ./SignOutput/${{ env.ASSET_PREFIX }}-windows-${{ matrix.job.arch }}.msi
+          ls -l ./SignOutput
+
       - name: Publish Release
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v1
         if: env.UPLOAD_ARTIFACT == 'true'
         with:
-          prerelease: true
+          prerelease: ${{ !inputs.olsx-only }}
+          make_latest: ${{ inputs.olsx-only && 'true' || 'false' }}
           tag_name: ${{ env.TAG_NAME }}
           files: |
-            ./SignOutput/rustdesk-*.msi
-            ./SignOutput/rustdesk-*.exe
+            ./SignOutput/*.msi
+            ./SignOutput/*.exe
 
   # The fallback for the flutter version, we use Sciter for 32bit Windows.
   build-for-windows-sciter:
+    if: ${{ !inputs.olsx-only }}
     name: ${{ matrix.job.target }} (${{ matrix.job.os }})
     runs-on: ${{ matrix.job.os }}
     # Temporarily disable this action due to additional test is needed.
@@ -607,7 +632,7 @@ jobs:
             ./SignOutput/rustdesk-*.exe
 
   build-rustdesk-ios:
-    if: ${{ inputs.upload-artifact }}
+    if: ${{ !inputs.olsx-only && (inputs.upload-artifact) }}
     name: build rustdesk ios ipa
     runs-on: ${{ matrix.job.os }}
     needs: [generate-bridge]
@@ -763,6 +788,11 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Apply OLSx branding
+        if: ${{ inputs.olsx-only }}
+        shell: bash
+        run: ./branding/apply.sh
 
       - name: Import the codesign cert
         if: env.MACOS_P12_BASE64 != null
@@ -943,14 +973,25 @@ jobs:
               mv "$name" "${name%%.dmg}-${{ matrix.job.arch }}.dmg"
           done
 
+      - name: Rename OLSx artifact
+        if: ${{ inputs.olsx-only && env.UPLOAD_ARTIFACT == 'true' }}
+        shell: bash
+        run: |
+          set -e
+          for f in rustdesk*.dmg; do
+            mv "$f" "${{ env.ASSET_PREFIX }}-macos-${{ matrix.job.arch }}.dmg"
+          done
+          ls -l ./*.dmg
+
       - name: Publish DMG package
         if: env.UPLOAD_ARTIFACT == 'true'
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v1
         with:
-          prerelease: true
+          prerelease: ${{ !inputs.olsx-only }}
+          make_latest: ${{ inputs.olsx-only && 'true' || 'false' }}
           tag_name: ${{ env.TAG_NAME }}
           files: |
-            rustdesk*-${{ matrix.job.arch }}.dmg
+            *.dmg
 
   publish_unsigned:
     needs:
@@ -958,7 +999,7 @@ jobs:
       - build-for-windows-flutter
       - build-for-windows-sciter
     runs-on: ubuntu-latest
-    if: ${{ inputs.upload-artifact }}
+    if: ${{ !inputs.olsx-only && (inputs.upload-artifact) }}
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -1014,6 +1055,7 @@ jobs:
           files: rustdesk-${{ env.VERSION }}-unsigned.tar.gz
 
   build-rustdesk-android:
+    if: ${{ !inputs.olsx-only }}
     needs: [generate-bridge]
     name: build rustdesk android apk ${{ matrix.job.target }}
     runs-on: ${{ matrix.job.os }}
@@ -1309,7 +1351,7 @@ jobs:
   build-rustdesk-android-universal:
     needs: [build-rustdesk-android]
     name: build rustdesk android universal apk
-    if: ${{ inputs.upload-artifact }}
+    if: ${{ !inputs.olsx-only && (inputs.upload-artifact) }}
     runs-on: ubuntu-24.04
     env:
       reltype: release
@@ -1492,6 +1534,7 @@ jobs:
             signed-apk/rustdesk-${{ env.VERSION }}-universal${{ env.suffix }}.apk
 
   build-rustdesk-linux:
+    if: ${{ !inputs.olsx-only }}
     needs: [generate-bridge]
     name: build rustdesk linux ${{ matrix.job.target }}
     runs-on: ${{ matrix.job.on }}
@@ -1841,6 +1884,7 @@ jobs:
   # old for it. A separate job rather than a matrix entry of build-rustdesk-linux: appimage and
   # flatpak need that job, and a failure here must not skip them.
   build-rustdesk-linux-drm:
+    if: ${{ !inputs.olsx-only }}
     needs: [generate-bridge]
     name: build rustdesk linux drm x86_64
     runs-on: ubuntu-22.04
@@ -2105,7 +2149,7 @@ jobs:
           path: ${{ env.DRM_DEB }}
 
   build-rustdesk-linux-sciter:
-    if: ${{ inputs.upload-artifact }}
+    if: ${{ !inputs.olsx-only && (inputs.upload-artifact) }}
     runs-on: ${{ matrix.job.on }}
     name: build-rustdesk-linux-sciter ${{ matrix.job.target }}
     strategy:
@@ -2350,7 +2394,7 @@ jobs:
     name: Build appimage ${{ matrix.job.target }}
     needs: [build-rustdesk-linux]
     runs-on: ubuntu-22.04
-    if: ${{ inputs.upload-artifact }}
+    if: ${{ !inputs.olsx-only && (inputs.upload-artifact) }}
     strategy:
       fail-fast: false
       matrix:
@@ -2403,7 +2447,7 @@ jobs:
       - build-rustdesk-linux
       - build-rustdesk-linux-sciter
     runs-on: ${{ matrix.job.on }}
-    if: ${{ inputs.upload-artifact }}
+    if: ${{ !inputs.olsx-only && (inputs.upload-artifact) }}
     strategy:
       fail-fast: false
       matrix:
